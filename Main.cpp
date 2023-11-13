@@ -83,7 +83,6 @@ auto Main::Windows() -> bool
         };
 
         getline(cin, input);
-        cout << input << endl;
 
         if (commands.find(input) != commands.end()) {
             commands[input]();
