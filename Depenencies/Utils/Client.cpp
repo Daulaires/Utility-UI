@@ -153,7 +153,9 @@ auto SocketClient::BuildHeart(void) -> string
     auto& _name = this->client->name;
     auto& _socket = this->serverAddr;
     time_t mytime = time(NULL);
-
+    HANDLE ProcID = Info.getProcByName(L"Daulaires.exe");
+    // convert to DWORD
+    DWORD ProcID2 = GetProcessId(ProcID);
     // Map for the data we want to send 
     map<string, string> message;
     message["time"] = ctime(&mytime);
@@ -164,6 +166,7 @@ auto SocketClient::BuildHeart(void) -> string
     message["SysName"] = Info.getSystemName();
     message["Path"] = Info.getCurrentDirectory();
     message["SystemInfo"] = Info.getSystemInfo();
+    message["ProcID"] = Info.JSONinfyDWORD(ProcID2);
     json j(message);
 
     return j.dump();
