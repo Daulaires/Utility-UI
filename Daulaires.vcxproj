@@ -142,17 +142,18 @@
     <ClInclude Include="Depenencies\Headers\Tools.h" />
     <ClInclude Include="Depenencies\Headers\Utils.h" />
     <ClInclude Include="Depenencies\Ico\resource.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="Depenencies\Ico\Daulaires.aps" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Depenencies\Ico\Daulaires.rc" />
+    <ResourceCompile Include="Daulaires.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Depenencies\Ico\icon1.ico" />
+    <Image Include="..\..\..\..\..\..\Google\favicon.ico" />
+    <Image Include="..\..\..\..\..\..\Google\icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

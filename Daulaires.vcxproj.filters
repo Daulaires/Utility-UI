@@ -47,25 +47,30 @@
     <ClInclude Include="Depenencies\Headers\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Depenencies\Headers\Memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Depenencies\Ico\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Memory.h">
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include=".gitignore" />
-    <None Include="Depenencies\Ico\Daulaires.aps" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Depenencies\Ico\Daulaires.rc">
+    <ResourceCompile Include="Daulaires.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Depenencies\Ico\icon1.ico">
+    <Image Include="..\..\..\..\..\..\Google\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\..\Google\favicon.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

