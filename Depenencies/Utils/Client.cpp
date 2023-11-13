@@ -152,22 +152,28 @@ auto SocketClient::BuildHeart(void) -> string
     Main Main{};
     auto& _name = this->client->name;
     auto& _socket = this->serverAddr;
-    time_t mytime = time(NULL);
+    auto mytime = time(NULL);
+    char timeBuffer[26];
     HANDLE ProcID = Info.getProcByName(L"Daulaires.exe");
     // convert to DWORD
     DWORD ProcID2 = GetProcessId(ProcID);
     // Map for the data we want to send 
     map<string, string> message;
-    message["time"] = ctime(&mytime);
+
+    ctime_s(timeBuffer, sizeof(timeBuffer), &mytime);
+    message["time"] = timeBuffer;
     message["name"] = _name;
     message["type"] = "client";
     message["socket"] = std::to_string((int)_socket.sin_addr.s_addr);
     message["SysType"] = Info.getSystemType();
     message["SysName"] = Info.getSystemName();
     message["Path"] = Info.getCurrentDirectory();
-    message["SystemInfo"] = Info.getSystemInfo();
-    message["ProcID"] = Info.JSONinfyDWORD(ProcID2);
-    json j(message);
+    message["ProcessID"] = Info.JSONinfyDWORD(ProcID2);
+    // sort the message map by key
+    map<std::string, std::string> ordered(message.begin(), message.end());
+
+    // convert the map to a JSON object
+    json j(ordered);
 
     return j.dump();
 };
