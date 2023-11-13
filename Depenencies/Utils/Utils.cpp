@@ -53,3 +53,8 @@ auto Utils::GetSystemType() -> string
 	}
 	return type;
 };
+
+auto Utils::MoveExe(string name, string path, string newpath) -> void
+{
+	system(("move " + name + " " + newpath).c_str());
+};

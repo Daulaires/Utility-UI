@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Daulaires.aps" />
+    <None Include="Depenencies\Ico\Daulaires.aps" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Depenencies\Ico\Daulaires.rc">

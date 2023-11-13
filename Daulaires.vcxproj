@@ -141,7 +141,7 @@
     <ClInclude Include="Depenencies\Ico\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Daulaires.aps" />
+    <None Include="Depenencies\Ico\Daulaires.aps" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
