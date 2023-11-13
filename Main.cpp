@@ -106,7 +106,6 @@ auto Main::Windows() -> bool
 auto Main::NotWindows(void) -> bool
 {
     Info Info;
-    cout << Info.isWindows() << endl;
     cout << "You are not using Windows" << endl;
     return 0;
 };
@@ -114,9 +113,10 @@ auto Main::NotWindows(void) -> bool
 int main() {
     Info Info;
     Main Main{};
+    auto name = Info.assignName();
     // allow another console to run the client
     std::thread clientThread([&]() {
-        Client(Info.assignName());
+        Client(name.c_str());
     });
 
     // detach from this thread in order to go to the Commands loop
@@ -128,9 +128,7 @@ int main() {
     };
 
     // loop through the Info functions to check what the system is
-    if (Info.isWindows()) {
-        Main.Windows();
-    };
+    Main.Windows();
 
     return 0;
 };
