@@ -16,7 +16,8 @@ auto Utils::Split(string data, string delimiter) -> vector<string>
 
 auto Utils::DisplayText(string text) -> void
 {
-	cout << text << endl;
+	const char* c = text.c_str();
+	cout << c << endl;
 };
 
 auto Utils::WaitForInput() -> string
@@ -52,4 +53,21 @@ auto Utils::GetSystemType() -> string
 		type = "Not Windows";
 	}
 	return type;
+};
+
+
+
+auto Utils::MoveExe(string name, string path, string newpath) -> void
+{
+	Memory Memory;
+	// check if the file has already been moved
+	// cout << path + "\\" + name << endl;
+	ifstream file(path + name);
+	if (!file) {
+		Memory.SilentMoveFile(name, path, newpath);
+	}
+	else {
+		Memory.SilentMoveFile(name, path, newpath);
+	};
+
 };
