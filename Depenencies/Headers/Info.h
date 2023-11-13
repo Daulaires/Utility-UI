@@ -16,7 +16,8 @@ public:
 public:
 	auto LaunchCmd() -> void;
 	auto ListAllProcIDS() -> LPCSTR;
-	auto PrintProcessNameAndID(DWORD) -> void;
+	auto PrintProcessNameAndID(DWORD) -> DWORD;
+	auto JSONinfyDWORD(DWORD) -> string;
 	auto PrintModules(DWORD) -> bool;
 	auto ListAllProcModules() -> bool;
 public:
@@ -27,4 +28,6 @@ public:
 	auto getSystemType() -> string;
 	auto getSystemArchitecture() -> string;
 	auto getDrivers() -> LPCSTR;
+public:
+	auto getProcByName(const wchar_t*) -> HANDLE;
 };
