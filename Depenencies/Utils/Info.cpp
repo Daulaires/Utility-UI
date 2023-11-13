@@ -6,22 +6,6 @@
 #include <Windows.h>
 #include <tlhelp32.h>
 
-auto Info::isWindows() -> bool
-{
-	// Check if the OS is Windows
-	OSVERSIONINFO info{};
-	info.dwOSVersionInfoSize = sizeof(info);
-	GetVersionEx(&info);
-	if (info.dwPlatformId == VER_PLATFORM_WIN32_NT)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	};
-};
-
 auto Info::LaunchCmd() -> void
 {
 	string cmd;
@@ -91,7 +75,6 @@ auto Info::PrintProcessNameAndID(DWORD processID) -> DWORD
 	};
 
 	// Release the handle to the process.
-
 	CloseHandle(hProcess);
 	return processId;
 };
@@ -193,26 +176,6 @@ auto Info::assignName() -> string
 	};
 
 	return randomString;
-};
-
-auto Info::getSystemInfo() -> string {
-	OSVERSIONINFOEX osVersionInfo;
-	ZeroMemory(&osVersionInfo, sizeof(OSVERSIONINFOEX));
-	osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-	if (GetVersionEx(reinterpret_cast<OSVERSIONINFO*>(&osVersionInfo))) {
-		if (osVersionInfo.dwMajorVersion == 10 && osVersionInfo.dwMinorVersion == 0) {
-			return "Not Windows 10";
-		}
-		else {
-			// Add more conditions for other versions if needed
-			return "Windows 10";
-		}
-	}
-	else {
-		// Handle error if GetVersionEx fails
-		return "Error";
-	}
 };
 
 auto Info::getSystemName() -> string
