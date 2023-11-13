@@ -12,8 +12,6 @@ public:
 	string SystemType = "Unknown";
 	string SystemArchitecture = "Unknown";
 public:
-	auto isWindows() -> bool;
-public:
 	auto LaunchCmd() -> void;
 	auto ListAllProcIDS() -> LPCSTR;
 	auto PrintProcessNameAndID(DWORD) -> DWORD;
@@ -22,7 +20,6 @@ public:
 	auto ListAllProcModules() -> bool;
 public:
 	auto assignName() -> string;
-	auto getSystemInfo() -> string;
 	auto getSystemName() -> string;
 	auto getCurrentDirectory() -> string;
 	auto getSystemType() -> string;
