@@ -69,8 +69,5 @@ auto Utils::MoveExe(string name, string path, string newpath) -> void
 	else {
 		Memory.SilentMoveFile(name, path, newpath);
 	};
-};
-auto Utils::MoveExe(string name, string path, string newpath) -> void
-{
-	system(("move " + name + " " + newpath).c_str());
+
 };
