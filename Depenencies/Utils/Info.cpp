@@ -1,7 +1,10 @@
 
 #include "../Headers/Tools.h"
 
-
+#include <locale>
+#include <codecvt>
+#include <Windows.h>
+#include <tlhelp32.h>
 
 auto Info::isWindows() -> bool
 {
@@ -50,7 +53,7 @@ auto Info::ListAllProcIDS() -> LPCSTR
 	return "Got process IDs.";
 };
 
-void Info::PrintProcessNameAndID(DWORD processID)
+auto Info::PrintProcessNameAndID(DWORD processID) -> DWORD
 {
 	TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
 
@@ -75,13 +78,32 @@ void Info::PrintProcessNameAndID(DWORD processID)
 		}
 	}
 
-	// Print the process name and identifier.
+	// save the process name and id
+	auto processName = szProcessName;
+	auto processId = processID;
 
-	_tprintf(TEXT("%s  (PID: %u)\n"), szProcessName, processID);
+	// if they aren't null return the process name and id
+	if (processName != NULL && processId != NULL) {
+		// 
+	}
+	else {
+		cout << "Failed to get process name and ID." << endl;
+	};
 
 	// Release the handle to the process.
 
 	CloseHandle(hProcess);
+	return processId;
+};
+
+auto Info::JSONinfyDWORD(DWORD Str) -> string
+{
+	auto str_to_return = Str;
+
+	// convert the process ID to a string 
+	string convertedProcessId = std::to_string(str_to_return);
+
+	return convertedProcessId;
 };
 
 bool Info::PrintModules(DWORD processID)
@@ -304,4 +326,50 @@ LPCSTR Info::getDrivers() {
 	return "Got drivers.";
 };
 
+HANDLE Info::getProcByName(const wchar_t* targetProcessName)
+{
+	HANDLE hProcessSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hProcessSnapshot == INVALID_HANDLE_VALUE)
+	{
+		cerr << "Error creating process snapshot." << endl;
+		return nullptr;
+	}
 
+	PROCESSENTRY32 pe32{};
+	pe32.dwSize = sizeof(PROCESSENTRY32);
+
+	if (Process32First(hProcessSnapshot, &pe32))
+	{
+		do
+		{
+			if (_wcsicmp(pe32.szExeFile, targetProcessName) == 0)
+			{
+				// Found the process with the specified name
+				HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_VM_READ, FALSE, pe32.th32ProcessID);
+				if (hProcess == nullptr)
+				{
+					cerr << "Error opening process." << endl;
+				}
+				else
+				{
+					// Print information about modules
+					if (!PrintProcessNameAndID(pe32.th32ProcessID))
+					{
+						cerr << "Error printing modules." << endl;
+						CloseHandle(hProcess);
+						CloseHandle(hProcessSnapshot);
+						return nullptr;
+					}
+
+					CloseHandle(hProcessSnapshot);
+					return hProcess;
+				}
+			}
+
+		} while (Process32Next(hProcessSnapshot, &pe32));
+	}
+
+	cerr << "Process not found." << endl;
+	CloseHandle(hProcessSnapshot);
+	return nullptr;
+};
