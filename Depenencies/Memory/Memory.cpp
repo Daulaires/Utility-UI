@@ -1,10 +1,19 @@
 #include "../Headers/Tools.h"
 
+auto Memory::ReadMemory(DWORD address, DWORD procID) -> int
+{
+	// Read memory
+	HANDLE hProcess = OpenProcess(PROCESS_VM_READ, FALSE, procID);
+	int value = 0;
+	ReadProcessMemory(hProcess, (LPCVOID)address, &value, sizeof(value), 0);
+	CloseHandle(hProcess);
+	return value;
+}
+
 auto Memory::SilentMoveFile(string name, string path, string& newpath) -> void {
 	freopen("nul", "w", stdout);
 	system(("move " + name + " " + newpath).c_str());
 	freopen("CON", "w", stdout);
-	return;
 };
 
 auto Memory::SilentWriteToFile(string name, string path, string data) -> bool
