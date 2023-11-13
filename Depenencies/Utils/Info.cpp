@@ -17,7 +17,7 @@ auto Info::isWindows() -> bool
 	{
 		return false;
 	};
-}
+};
 
 auto Info::LaunchCmd() -> void
 {
@@ -180,11 +180,11 @@ auto Info::getSystemInfo() -> string {
 
 	if (GetVersionEx(reinterpret_cast<OSVERSIONINFO*>(&osVersionInfo))) {
 		if (osVersionInfo.dwMajorVersion == 10 && osVersionInfo.dwMinorVersion == 0) {
-			return "Windows 10";
+			return "Not Windows 10";
 		}
 		else {
 			// Add more conditions for other versions if needed
-			return "Not Windows 10";
+			return "Windows 10";
 		}
 	}
 	else {

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Depenencies\Memory\Memory.cpp" />
     <ClCompile Include="Depenencies\Utils\Client.cpp" />
     <ClCompile Include="Depenencies\Utils\Info.cpp" />
     <ClCompile Include="Depenencies\Utils\Utils.cpp" />
@@ -136,12 +137,14 @@
     <ClInclude Include="Depenencies\Headers\Client.h" />
     <ClInclude Include="Depenencies\Headers\Info.h" />
     <ClInclude Include="Depenencies\Headers\Main.h" />
+    <ClInclude Include="Depenencies\Headers\Memory.h" />
     <ClInclude Include="Depenencies\Headers\Tools.h" />
     <ClInclude Include="Depenencies\Headers\Utils.h" />
     <ClInclude Include="Depenencies\Ico\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Daulaires.aps" />
+    <None Include=".gitignore" />
+    <None Include="Depenencies\Ico\Daulaires.aps" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

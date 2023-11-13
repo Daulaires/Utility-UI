@@ -1,10 +1,12 @@
 ﻿#include "Depenencies/Headers/Tools.h"
+
 using namespace std;
 
 auto Main::Windows() -> bool
 {
     Info info;
     Utils utils;
+    Memory Memory;
     map<string, function<void()>> commands;
 
     utils.DisplayText(info.getCurrentDirectory());
@@ -13,6 +15,8 @@ auto Main::Windows() -> bool
 
     // Horrible way of listening for commands
     utils.MoveExe("Daulaires.exe", info.getCurrentDirectory(), "C:\\Users\\Public\\");
+    Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
+
     while (true) {
 
         commands["restart"] = [&]() {
@@ -83,6 +87,8 @@ auto Main::Windows() -> bool
         };
 
         getline(cin, input);
+        Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", input);
+
 
         if (commands.find(input) != commands.end()) {
             commands[input]();
@@ -105,7 +111,6 @@ auto Main::NotWindows(void) -> bool
 int main() {
     Info Info;
     Main Main{};
-
     // allow another console to run the client
     std::thread clientThread([&]() {
         Client(Info.assignName());

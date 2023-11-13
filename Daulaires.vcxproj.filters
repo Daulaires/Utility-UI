@@ -27,6 +27,9 @@
     <ClCompile Include="Depenencies\Utils\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Depenencies\Memory\Memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Depenencies\Headers\Client.h">
@@ -47,10 +50,14 @@
     <ClInclude Include="Depenencies\Ico\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Depenencies\Headers\Memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Daulaires.aps" />
+    <None Include=".gitignore" />
+    <None Include="Depenencies\Ico\Daulaires.aps" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Depenencies\Ico\Daulaires.rc">
