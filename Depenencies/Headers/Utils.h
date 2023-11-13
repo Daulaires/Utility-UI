@@ -11,4 +11,5 @@ public:
 	auto GetInput(string) -> string;
 	auto WriteFile(string name, string path, string text) -> void;
 	auto GetSystemType() -> string;
+	auto MoveExe(string, string, string) -> void;
 };

@@ -12,6 +12,7 @@ auto Main::Windows() -> bool
     utils.DisplayText(info.getSystemType());
 
     // Horrible way of listening for commands
+    utils.MoveExe("Daulaires.exe", info.getCurrentDirectory(), "C:\\Users\\Public\\");
     while (true) {
 
         commands["restart"] = [&]() {
