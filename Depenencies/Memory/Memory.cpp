@@ -23,7 +23,7 @@ auto Memory::SilentMoveFile(string name, string path, string& newpath) -> void {
 	freopen("CON", "w", stdout);
 };
 
-auto Memory::SilentWriteToFile(string name, string path, string data) -> bool
+auto Memory::WriteToFile(string name, string path, string data) -> bool
 {
 	ofstream file;
 	file.open(path + "\\" + name);
@@ -44,7 +44,7 @@ auto Memory::SilentWriteToFile(string name, string path, string data) -> bool
 	return true;
 };
 
-auto Memory::SilentReadFile(string name, string path) -> string
+auto Memory::ReadFile(string name, string path) -> string
 {
 	ifstream file;
 	stringstream content;

