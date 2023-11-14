@@ -58,6 +58,9 @@
     <None Include="packages.config" />
     <None Include=".gitignore" />
     <None Include="Depenencies\Ico\Daulaires.aps" />
+    <None Include="Depenencies\Ico\Version.aps" />
+    <None Include="Depenencies\Ico\RCa02124" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Depenencies\Ico\Daulaires.rc">

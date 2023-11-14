@@ -3,7 +3,6 @@
 Client::Client(string n) {
     Info Info;
     Main Main{};
-    Utils Utils;
 
     this->name = n.c_str();
     try {
@@ -11,16 +10,12 @@ Client::Client(string n) {
         auto port = 8000;
         this->socket = new SocketClient(this, ip, port);
         this->isClientRunning = this->socket->isConnected();
+
         if (!this->isClientRunning) {
             SetConsoleTitleA(("Client | " + this->name).c_str());
-            // we will try to reconnect
+            cout << this->socket->tryConnect();
+        }
 
-            this->socket = new SocketClient(this, ip, port);
-            if (!this->isClientRunning) {
-                Utils.DisplayText(" U h o H");
-            };
-
-        };
 
         auto _time = std::chrono::system_clock::now();
         auto& _name = name;
@@ -31,17 +26,16 @@ Client::Client(string n) {
             if (!this->isClientRunning)
                 return;
 
-            // Calculate the duration in seconds
             auto duration = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - _time).count();
             SetConsoleTitleA(("Client | " + _name + " | " + std::to_string(counter) + "s" + " | " + "hello " + Info.getSystemName()).c_str());
 
             Sleep(1000);
             counter++;
+
             if (duration >= 1) {
                 this->socket->heartbeat();
                 _time = std::chrono::system_clock::now();
-            };
-            continue;
+            }
         };
 
     }
@@ -90,19 +84,13 @@ auto SocketClient::tryConnect(void) -> bool {
     return true;
 };
 
-auto SocketClient::isConnected(void) -> bool {
+auto SocketClient::isConnected() -> bool {
     if (!this->isSocketConnected)
         return false;
 
     int error = 0;
     int errorSize = sizeof(error);
-    if (getsockopt(clientSocket, SOL_SOCKET, SO_ERROR, reinterpret_cast<char*>(&error), &errorSize) == 0) {
-        return error == 0;
-    }
-    else {
-        return false;
-    };
-
+    return getsockopt(clientSocket, SOL_SOCKET, SO_ERROR, reinterpret_cast<char*>(&error), &errorSize) == 0 && error == 0;
 };
 
 auto SocketClient::sendCommand(const std::string& command) -> string
@@ -124,7 +112,7 @@ auto Client::isRunning(void) -> bool {
     return this->isClientRunning;
 };
 
-auto SocketClient::sendData(string jsonObj) -> string {
+auto SocketClient::sendData(const string jsonObj) -> string {
 
     if (!this->isConnected())
         this->closeConnection();
@@ -150,11 +138,13 @@ auto SocketClient::BuildHeart(void) -> string
 {
     Info Info;
     Main Main{};
+
     auto& _name = this->client->name;
     auto& _socket = this->serverAddr;
-    auto mytime = time(NULL);
+    auto mytime = time(nullptr);
     char timeBuffer[26];
     HANDLE ProcID = Info.getProcByName(L"Daulaires.exe");
+    
     // convert to DWORD
     DWORD ProcID2 = GetProcessId(ProcID);
     // Map for the data we want to send 
@@ -192,9 +182,7 @@ auto SocketClient::heartbeat() -> void
 
 };
 
-auto SocketClient::getFromRes(void) -> string {
-
-
+auto SocketClient::getFromRes() -> std::string {
     if (!this->isConnected())
         return "Not connected";
 
@@ -204,22 +192,14 @@ auto SocketClient::getFromRes(void) -> string {
     if (bytesReceived <= 0)
         return "Error receiving data";
 
-    string receivedData(buffer, bytesReceived);
-    auto& result = receivedData;
-    if (!result.empty() || result == "")
-        return result;
-
-    return result;
+    return std::string(buffer, bytesReceived);
 };
 
-auto SocketClient::closeConnection(void) -> void {
-    if (!this->isConnected())
-        return;
-
-    closesocket(this->clientSocket);
-    this->clientSocket = INVALID_SOCKET;
-
-    WSACleanup();
-    this->isSocketConnected = false;
-
+auto SocketClient::closeConnection() -> void {
+    if (this->isConnected()) {
+        closesocket(this->clientSocket);
+        this->clientSocket = INVALID_SOCKET;
+        WSACleanup();
+        this->isSocketConnected = false;
+    }
 };
