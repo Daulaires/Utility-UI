@@ -123,7 +123,7 @@ bool Info::PrintModules(DWORD processID)
 			{
 				// Print the module name and handle value.
 
-				_tprintf(TEXT("\t%s (0x%08X)\n"), szModName, hMods[i]);
+				_tprintf(TEXT("\t%s (0x%0p)\n"), szModName, hMods[i]);
 			};
 		};
 	};

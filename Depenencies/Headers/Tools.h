@@ -2,10 +2,6 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #pragma comment(lib, "Ws2_32.lib")
 #pragma warning(disable:4996) 
-#pragma warning(disable:4313)
-#pragma warning(disable:4477)
-#pragma warning(disable:4038)
-
 
 using namespace std;
 
@@ -26,6 +22,7 @@ using namespace std;
 #include <nlohmann/json.hpp>
 #include <time.h>
 #include <stdlib.h> 
+#include <sstream>
 using json = nlohmann::json;
 
 #include "Utils.h"

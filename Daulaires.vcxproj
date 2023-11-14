@@ -142,14 +142,17 @@
     <ClInclude Include="Depenencies\Headers\Tools.h" />
     <ClInclude Include="Depenencies\Headers\Utils.h" />
     <ClInclude Include="Depenencies\Ico\resource.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="Depenencies\Ico\version.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="Daulaires.aps" />
+    <None Include="Depenencies\Ico\Daulaires.aps" />
+    <None Include="Depenencies\Ico\RCa02124" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Daulaires.rc" />
+    <ResourceCompile Include="Depenencies\Ico\Version.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Google\favicon.ico" />

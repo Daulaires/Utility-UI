@@ -44,9 +44,10 @@ auto Memory::SilentWriteToFile(string name, string path, string data) -> bool
 	return true;
 };
 
-auto Memory::SilentReadFile(string name, string path) -> bool
+auto Memory::SilentReadFile(string name, string path) -> string
 {
 	ifstream file;
+	stringstream content;
 
 	file.open(path + "\\" + name);
 
@@ -55,19 +56,16 @@ auto Memory::SilentReadFile(string name, string path) -> bool
 		string line;
 		while (getline(file, line))
 		{
-			cout << line << endl;
-		};
+			content << line << endl;
+		}
 		file.close();
-		return true;
+		return content.str();
 	}
 	else
 	{
 		cout << "Unable to open file.";
-		return false;
-	};
-
-	file.close();
-	return true;
+		return ""; // Return an empty string to indicate failure.
+	}
 };
 
 

