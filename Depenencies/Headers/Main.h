@@ -7,5 +7,5 @@ public:
 	SocketClient* socket;
 public:
 	auto Windows() -> bool;
-	auto NotWindows(void) -> bool;
+	auto NotWindows(void) -> void;
 };

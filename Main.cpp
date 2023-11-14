@@ -103,11 +103,11 @@ auto Main::Windows() -> bool
     return true;
 };
 
-auto Main::NotWindows(void) -> bool
+auto Main::NotWindows(void) -> void
 {
     Info Info;
-    cout << "You are not using Windows" << endl;
-    return 0;
+    Utils Utils;
+    Utils.DisplayText(Info.getSystemType());
 };
 
 int main() {
@@ -122,9 +122,11 @@ int main() {
     // detach from this thread in order to go to the Commands loop
     clientThread.detach();
 
-    if (Info.getSystemName() == "DEBIAN") {
+    if (Info.getSystemName() == "DEBIAN"){
+        // create files on a linux system
+
         Main.NotWindows();
-        return 1;
+        exit(1);
     };
 
     // loop through the Info functions to check what the system is
