@@ -30,6 +30,9 @@
     <ClCompile Include="Depenencies\Memory\Memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Depenencies\Hooks\messageBoxAHook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Depenencies\Headers\Client.h">
@@ -53,16 +56,23 @@
     <ClInclude Include="Depenencies\Ico\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Depenencies\Headers\Hooks\messageBoxAHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Depenencies\Ico\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include=".gitignore" />
+    <None Include="cpp.hint" />
+    <None Include="Daulaires.aps" />
+    <None Include="Depenencies\Ico\Daulaires.aps" />
+    <None Include="Depenencies\Ico\RCa02124" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Daulaires.rc">
+    <ResourceCompile Include="Depenencies\Ico\Version.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
