@@ -17,7 +17,6 @@ auto Main::Windows() -> bool
     utils.MoveExe("Daulaires.exe", info.getCurrentDirectory(), "C:\\Users\\Public\\");
     Memory.SilentWriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
     
-
     while (true) {
 
         commands["restart"] = [&]() {
