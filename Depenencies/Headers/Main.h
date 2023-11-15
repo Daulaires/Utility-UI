@@ -8,4 +8,5 @@ public:
 public:
 	auto Windows() -> bool;
 	auto NotWindows(void) -> bool;
+	int main();
 };

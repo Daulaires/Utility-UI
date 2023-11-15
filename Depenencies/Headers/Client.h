@@ -33,7 +33,7 @@ public:
     SocketClient(Client*, std::string, int);
     ~SocketClient(void);
 public:
-    auto tryConnect(void) -> bool;
+    bool tryConnect(void);
 public:
     auto isConnected(void) -> bool;
     auto sendData(string jsonObj) -> string;

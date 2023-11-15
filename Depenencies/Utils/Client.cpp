@@ -61,7 +61,7 @@ SocketClient::~SocketClient(void) {
     this->closeConnection();
 };
 
-auto SocketClient::tryConnect(void) -> bool {
+bool SocketClient::tryConnect(void) {
     if (WSAStartup(MAKEWORD(2, 2), &this->wsaData) != 0) {
         this->closeConnection();
         return false;

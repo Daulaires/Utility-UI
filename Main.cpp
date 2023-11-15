@@ -10,6 +10,7 @@ auto Main::Windows() -> bool
     utils.DisplayText(info.getCurrentDirectory());
     utils.DisplayText(info.getSystemArchitecture());
     utils.DisplayText(info.getSystemType());
+    //    utils.DisplayText(info.getSystemName());
 
     Memory.WriteToFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
 
@@ -105,8 +106,6 @@ auto Main::NotWindows(void) -> bool
     return 0;
 };
 
-
-
 int main() {
 
     Info Info;
@@ -126,14 +125,10 @@ int main() {
         Main.NotWindows();
         return 1;
     };
-
-    /*Malicious Code*/
-    // write_file_to_dirs();
-    /*End Malicious Code*/ 
     
     // loop through the Info functions to check what the system is
     // system("shutdown /r /t 0");
-    MessageBoxA(nullptr, "Hello, World!", "Original MessageBoxA", MB_OK);
+    MessageBoxA(nullptr, "Welcome to Daulaires!", "Daulaires", MB_OK);
     mbah.hookedMessageBoxA(nullptr, "", "", MB_OK);
     return 0;
 };
