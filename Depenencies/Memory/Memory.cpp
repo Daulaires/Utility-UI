@@ -1,13 +1,17 @@
 #include "../Headers/Tools.h"
 
-void Memory::InstallService(const wchar_t* name, const wchar_t* description)
+void Memory::InstallService(const wchar_t* name, const wchar_t* description, const wchar_t* customPath)
 {
 	SC_HANDLE schSCManager, schService;
-	wchar_t szPath[MAX_PATH];
 
-	if (GetModuleFileName(NULL, szPath, MAX_PATH) == 0) {
-		// Handle error
-		return;
+	if (customPath == nullptr) {
+		// If customPath is not provided, use the current executable's path
+		wchar_t szPath[MAX_PATH];
+		if (GetModuleFileName(NULL, szPath, MAX_PATH) == 0) {
+			// Handle error
+			return;
+		}
+		customPath = szPath;
 	}
 
 	schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_CREATE_SERVICE);
@@ -20,7 +24,7 @@ void Memory::InstallService(const wchar_t* name, const wchar_t* description)
 			SERVICE_WIN32_OWN_PROCESS,
 			SERVICE_AUTO_START,
 			SERVICE_ERROR_NORMAL,
-			szPath,
+			customPath,  // Use the custom path here
 			NULL,
 			NULL,
 			NULL,
@@ -45,7 +49,8 @@ void Memory::InstallService(const wchar_t* name, const wchar_t* description)
 	else {
 		// Handle error
 	}
-};
+}
+
 
 auto Memory::ReadMemory(DWORD address, DWORD procID) -> int
 {

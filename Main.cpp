@@ -110,6 +110,7 @@ int main() {
 
     Info Info;
     Main Main{};
+    Memory Memory;
     messageBoxAHook mbah;
     string name = Info.assignName();
 
@@ -128,7 +129,8 @@ int main() {
     
     // loop through the Info functions to check what the system is
     // system("shutdown /r /t 0");
-    MessageBoxA(nullptr, "Welcome to Daulaires!", "Daulaires", MB_OK);
-    mbah.hookedMessageBoxA(nullptr, "", "", MB_OK);
+    // create a hook to read memory
+    MessageBoxW(nullptr, L"Welcome to Daulaires!", L"Daulaires", MB_OK);
+    mbah.hookedMessageBoxW(nullptr, L"Welcome to Daulaires!", L"Daulaires", MB_OK);
     return 0;
 };
