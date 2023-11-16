@@ -6,8 +6,8 @@ Client::Client(string n) {
 
     this->name = n.c_str();
     try {
-        auto ip = "192.168.1.177"; // Change this to the server's IP
-        auto port = 8000;
+        const char* ip = "192.168.1.177"; // Change this to the server's IP
+        int port = 8000;
         this->socket = new SocketClient(this, ip, port);
         this->isClientRunning = this->socket->isConnected();
 
@@ -17,9 +17,8 @@ Client::Client(string n) {
         }
 
 
-        auto _time = std::chrono::system_clock::now();
-        auto& _name = name;
-        auto& _socket = socket->serverAddr;
+        std::chrono::system_clock::time_point _time = std::chrono::system_clock::now();
+        string& _name = name;
         auto counter = 0;
 
         while (this->isRunning()) {

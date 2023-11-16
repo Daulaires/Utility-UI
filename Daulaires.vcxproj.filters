@@ -30,7 +30,7 @@
     <ClCompile Include="Depenencies\Memory\Memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\Hooks\messageBoxAHook.cpp">
+    <ClCompile Include="Depenencies\Hooks\messageBoxHooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,10 +56,10 @@
     <ClInclude Include="Depenencies\Ico\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Hooks\messageBoxAHook.h">
+    <ClInclude Include="Depenencies\Ico\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Ico\version.h">
+    <ClInclude Include="Depenencies\Headers\Hooks\messageBoxHooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

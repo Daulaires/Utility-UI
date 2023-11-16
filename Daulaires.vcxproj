@@ -124,7 +124,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\Projects\Google\python\IOT\MYThing\WinSocketConsole\packages\minhook.1.3.3\build\native;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
       <AllowIsolation>true</AllowIsolation>
@@ -133,7 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Depenencies\Hooks\messageBoxAHook.cpp" />
+    <ClCompile Include="Depenencies\Hooks\messageBoxHooks.cpp" />
     <ClCompile Include="Depenencies\Memory\Memory.cpp" />
     <ClCompile Include="Depenencies\Utils\Client.cpp" />
     <ClCompile Include="Depenencies\Utils\Info.cpp" />
@@ -142,7 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Depenencies\Headers\Client.h" />
-    <ClInclude Include="Depenencies\Headers\Hooks\messageBoxAHook.h" />
+    <ClInclude Include="Depenencies\Headers\Hooks\messageBoxHooks.h" />
     <ClInclude Include="Depenencies\Headers\Info.h" />
     <ClInclude Include="Depenencies\Headers\Main.h" />
     <ClInclude Include="Depenencies\Headers\Memory.h" />
