@@ -4,7 +4,6 @@ auto Main::Windows() -> bool
 {
     Info info;
     Utils utils;
-    Memory memory;
     std::map<std::string, std::function<void()>> commands;
 
     utils.DisplayText(info.getCurrentDirectory());
@@ -12,115 +11,144 @@ auto Main::Windows() -> bool
     utils.DisplayText(info.getSystemType());
     utils.DisplayText("Welcome to the Daulaires CLI Tool!");
 
+    auto container = new ImGuiContainer();
+    container->init();
+
+    bool done = false;
+
     while (true) {
 
-        commands["restart"] = [&]() {
-            utils.DisplayText("Restarting...");
-            Sleep(500);
-            system("shutdown /r /t 0");
-        };
-
-        commands["notepad"] = [&]() {
-            utils.DisplayText("Launching notepad...");
-            Sleep(500);
-            system("c:\\windows\\system32\\notepad.exe");
-        };
-
-        commands["nslookup"] = [&]() {
-            utils.DisplayText("Launching nslookup...");
-            Sleep(500);
-            system("c:\\windows\\system32\\nslookup.exe");
-        };
-
-        commands["arp"] = [&]() {
-            utils.DisplayText("Launching arp...");
-            Sleep(500);
-            system("c:\\windows\\system32\\arp.exe -a");
-        };
-
-        commands["cmd"] = [&]() {
-            utils.DisplayText("Launching cmd...");
-            Sleep(500);
-            info.LaunchCmd();
-        };
-
-        commands["writeFile"] = [&]() {
-            utils.DisplayText("Writing to file...");
-            Sleep(500);
-            utils.WriteFile("test.txt", "C:\\Users\\Public\\", "Hello, world!");
-        };
-
-        commands["showDrivers"] = [&]() {
-            utils.DisplayText("Getting drivers...");
-            Sleep(500);
-            info.getDrivers();
-        };
-
-        commands["showProcIds"] = [&]() {
-            utils.DisplayText("Getting process IDs...");
-            Sleep(500);
-            info.ListAllProcIDS();
-        };
-
-        commands["showProcMods"] = [&]() {
-            utils.DisplayText("Getting process modules...");
-            info.ListAllProcModules();
-        };
-
-        commands["ipconfig"] = [&]() {
-            utils.DisplayText("Running ipconfig...");
-            system("ipconfig");
-        };
-
-        commands["systemInfo"] = [&]() {
-            utils.DisplayText("Displaying system information...");
-            system("systeminfo");
-        };
-
-        commands["openExplorer"] = [&]() {
-            utils.DisplayText("Opening File Explorer...");
-            system("explorer.exe");
-        };
-
-        commands["calc"] = [&]() {
-            utils.DisplayText("Launching Calculator...");
-            system("calc");
-        };
-
-        commands["taskManager"] = [&]() {
-            utils.DisplayText("Opening Task Manager...");
-            system("taskmgr");
-        };
-
-        commands["help"] = [&]() {
-            utils.DisplayText("Commands: ");
-            int i = 0;
-            for (const auto& command : commands) {
-                i++;
-                utils.DisplayText("cmd#" + std::to_string(i) + " | " + command.first);
-            }
-        };
-
-        commands["quit"] = [&]() {
-            utils.DisplayText("Exiting...");
-            exit(1);
-        };
-
-        std::string input;
-        std::getline(std::cin, input);
-        memory.WriteToFile("test.txt", "C:\\Users\\Public\\", input);
-
-        if (commands.find(input) != commands.end()) {
-            commands[input]();
-        }
-        else {
-            utils.DisplayText("Command not found");
-        }
         MSG msg;
-        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
+        while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
+        {
+            ::TranslateMessage(&msg);
+            ::DispatchMessage(&msg);
+            if (msg.message == WM_QUIT)
+                done = true;
+        };
+
+        if (done)
+            break;
+
+        container->handleResizeBuffers();
+
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
+
+        ImGuiIO& io = ImGui::GetIO();
+        auto windowSize = io.DisplaySize;
+
+        ImGui::SetNextWindowPos(ImVec2(0.f, 0.f));
+        ImGui::SetNextWindowSize(windowSize);
+
+        container->setAresStyles();
+
+        if (ImGui::Begin("Home", NULL, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus)) {
+            
+            if (ImGui::BeginMenuBar()) {
+                
+                if (ImGui::BeginMenu("Main")) {
+                    
+                    ImGui::MenuItem("Exit", NULL, &done);
+                    ImGui::EndMenu();
+
+                };
+
+                ImGui::EndMenuBar();
+
+            };
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().y + ImGui::CalcTextSize("ShowServices").y) * 0.29f);
+            if (ImGui::Button("Show Services")) {
+                utils.DisplayText("Launching sc query...");
+                Sleep(500);
+                system("c:\\windows\\system32\\sc.exe query");
+            };
+
+            ImGui::SameLine();
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().y - ImGui::CalcTextSize("ShowDrivers").y) * 0.76f);
+            if (ImGui::Button("Show Drivers")) {
+                utils.DisplayText("Launching driverquery...");
+                Sleep(500);
+                info.getDrivers();
+            };
+
+
+
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().y + ImGui::CalcTextSize("netstat").y) * 0.295f);
+            if (ImGui::Button("netstat")) {
+                utils.DisplayText("Launching netstat...");
+                Sleep(500);
+                system("c:\\windows\\system32\\netstat.exe -ano");
+            };
+
+            ImGui::SameLine();
+
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().y - ImGui::CalcTextSize("cmd").y) * 0.57f);
+            if (ImGui::Button("cmd")) {
+                utils.DisplayText("Launching cmd...");
+                Sleep(500);
+                info.LaunchCmd();
+            };
+
+            ImGui::SameLine();
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().y + ImGui::CalcTextSize("ipconfig").y) * 0.64f);
+            if (ImGui::Button("ipconfig")) {
+				utils.DisplayText("Launching ipconfig...");
+				Sleep(500);
+				system("c:\\windows\\system32\\ipconfig.exe");
+			};
+
+            ImGui::SameLine();
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("net").x) * 0.44f);
+            if (ImGui::Button("net")) {
+                utils.DisplayText("Launching net...");
+                Sleep(500);
+                system("c:\\windows\\system32\\net.exe");
+            };
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().y - ImGui::CalcTextSize("arp").y) * 0.35f);
+            if (ImGui::Button("arp")) {
+				utils.DisplayText("Launching netstat...");
+				Sleep(500);
+				system("c:\\windows\\system32\\arp.exe -a");
+			};
+
+            ImGui::SameLine();
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().y + ImGui::CalcTextSize("tasklist").y) * 0.42f);
+            if (ImGui::Button("tasklist")) {
+                utils.DisplayText("Launching tasklist...");
+                Sleep(500);
+                system("c:\\windows\\system32\\tasklist.exe");
+            };
+
+            ImGui::SameLine();
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("nslookup").x) * 0.342f);
+            if (ImGui::Button("nslookup")) {
+                utils.DisplayText("Launching nslookup...");
+                Sleep(500);
+                system("c:\\windows\\system32\\nslookup.exe");
+            };
+
+
+
+
+            ImGui::End();
+
+        };
+
+        ImGui::EndFrame();
+        ImGui::Render();
+        
+        container->finalizeFrame();
     }
     CloseHandler(CTRL_CLOSE_EVENT);
     return true;

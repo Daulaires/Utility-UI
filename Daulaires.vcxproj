@@ -134,10 +134,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Depenencies\Hooks\messageBoxHooks.cpp" />
+    <ClCompile Include="Depenencies\ImGui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Depenencies\ImGui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="Depenencies\ImGui\imgui.cpp" />
+    <ClCompile Include="Depenencies\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="Depenencies\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Depenencies\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Depenencies\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Depenencies\Memory\Memory.cpp" />
     <ClCompile Include="Depenencies\Utils\Client.cpp" />
     <ClCompile Include="Depenencies\Utils\Info.cpp" />
     <ClCompile Include="Depenencies\Utils\Utils.cpp" />
+    <ClCompile Include="Depenencies\Window\Window.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +158,16 @@
     <ClInclude Include="Depenencies\Headers\Utils.h" />
     <ClInclude Include="Depenencies\Ico\resource.h" />
     <ClInclude Include="Depenencies\Ico\version.h" />
+    <ClInclude Include="Depenencies\ImGui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="Depenencies\ImGui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="Depenencies\ImGui\DroidSans.hpp" />
+    <ClInclude Include="Depenencies\ImGui\imconfig.h" />
+    <ClInclude Include="Depenencies\ImGui\imgui.h" />
+    <ClInclude Include="Depenencies\ImGui\imgui_internal.h" />
+    <ClInclude Include="Depenencies\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Depenencies\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Depenencies\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Depenencies\Headers\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

@@ -23,12 +23,14 @@ using namespace std;
 #include <time.h>
 #include <stdlib.h> 
 #include <sstream>
-using json = nlohmann::json;
+#include <unordered_map>
 
+using json = nlohmann::json;
 #include "Utils.h"
 #include "Info.h"
 #include "Utils.h"
 #include "Client.h"
 #include "Main.h"
 #include "Memory.h"
+#include "Window.h"
 #include "./Hooks/messageBoxHooks.h"
