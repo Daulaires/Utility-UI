@@ -15,118 +15,121 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="DaulairesUI\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\Utils\Client.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\Utils\Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\Utils\Info.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\Utils\Info.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\Utils\Utils.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\Utils\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\Memory\Memory.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\Memory\Memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\Hooks\messageBoxHooks.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\Hooks\messageBoxHooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\ImGui\backends\imgui_impl_dx11.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\ImGui\backends\imgui_impl_dx11.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\ImGui\backends\imgui_impl_win32.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\ImGui\backends\imgui_impl_win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\ImGui\imgui.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\ImGui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\ImGui\imgui_demo.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\ImGui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\ImGui\imgui_draw.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\ImGui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\ImGui\imgui_tables.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\ImGui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\ImGui\imgui_widgets.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\ImGui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Depenencies\Window\Window.cpp">
+    <ClCompile Include="DaulairesUI\Dependencies\Window\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Depenencies\Headers\Client.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Info.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Info.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Main.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Tools.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Tools.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Utils.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Memory.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Ico\resource.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Ico\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Ico\version.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Ico\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Hooks\messageBoxHooks.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Hooks\messageBoxHooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\backends\imgui_impl_dx11.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\backends\imgui_impl_dx11.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\backends\imgui_impl_win32.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\backends\imgui_impl_win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\DroidSans.hpp">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\DroidSans.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\imconfig.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\imgui.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\imgui_internal.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\imstb_rectpack.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\imstb_rectpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\imstb_textedit.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\imstb_textedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\ImGui\imstb_truetype.h">
+    <ClInclude Include="DaulairesUI\Dependencies\ImGui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Depenencies\Headers\Window.h">
+    <ClInclude Include="DaulairesUI\Dependencies\Headers\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\nlohmann.json.3.11.2\build\native\include\nlohmann\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages\packages.config" />
     <None Include=".gitignore" />
-    <None Include="cpp.hint" />
-    <None Include="Daulaires.aps" />
-    <None Include="Depenencies\Ico\Daulaires.aps" />
-    <None Include="Depenencies\Ico\RCa02124" />
+    <None Include="DaulairesUI\cpp.hint" />
+    <None Include="DaulairesUI\Daulaires.aps" />
+    <None Include="DaulairesUI\Dependencies\Ico\Daulaires.aps" />
+    <None Include="DaulairesUI\Dependencies\Ico\RCa02124" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Depenencies\Ico\Version.rc">
+    <ResourceCompile Include="DaulairesUI\Dependencies\Ico\Version.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

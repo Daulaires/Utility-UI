@@ -202,7 +202,7 @@ auto ImGuiContainer::setAresStyles(void) -> void {
     colors[ImGuiCol_SliderGrabActive] = ImVec4{ 0.74f, 0.58f, 0.98f, 0.54f };
 
     // Frame BG
-    colors[ImGuiCol_FrameBg] = ImVec4{ 0.2f, 0.2, 0.2, 1.0f };
+    colors[ImGuiCol_FrameBg] = ImVec4{ 0.2f, 0.2f, 0.2f, 1.0f };
     colors[ImGuiCol_FrameBgHovered] = ImVec4{ 0.27f, 0.27f, 0.27f, 1.0f };
     colors[ImGuiCol_FrameBgActive] = ImVec4{ 0.24f, 0.24f, 0.24f, 1.0f };
 
