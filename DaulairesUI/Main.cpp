@@ -155,6 +155,7 @@ void WINAPI Main::CloseHandler(DWORD dwCtrlType) {
     if (dwCtrlType == CTRL_CLOSE_EVENT) {
         // Handle the close event (e.g., cleanup, free resources)
         FreeConsole();
+        exit(1);
     }
 };
 

